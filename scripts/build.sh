@@ -29,9 +29,11 @@ docker run --rm --privileged \
     export DEBIAN_FRONTEND=noninteractive
     apt-get update && apt-get install -y live-build debootstrap curl gnupg2
 
-    # Add Kali repository and install archive keyring for package verification
-    echo 'deb https://http.kali.org/kali kali-rolling main contrib non-free non-free-firmware' > /etc/apt/sources.list.d/kali.list
+    # Install Kali archive keyring - fetch and import the GPG key properly
     curl -fsSL https://archive.kali.org/archive-key.asc | gpg --dearmor -o /usr/share/keyrings/kali-archive-keyring.gpg
+    
+    # Add Kali repository with signed-by
+    echo 'deb [signed-by=/usr/share/keyrings/kali-archive-keyring.gpg] https://http.kali.org/kali kali-rolling main contrib non-free non-free-firmware' > /etc/apt/sources.list.d/kali.list
     apt-get update
     apt-get install -y kali-archive-keyring
 
