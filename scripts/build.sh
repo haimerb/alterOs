@@ -61,7 +61,9 @@ docker run --rm --privileged \
       --backports false
 
     lb build
-    mv live-image-${ARCH}.tar.gz /output/${IMAGE_NAME}-wsl.tar.gz
+    
+    # Find the generated tarball (name may vary)
+    find /config -name 'live-image-*.tar.gz' -type f -exec mv {} /output/${IMAGE_NAME}-wsl.tar.gz \;
   "
 
 echo "=== Build complete: ${OUTPUT_TAR} ==="
