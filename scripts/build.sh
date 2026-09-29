@@ -28,19 +28,19 @@ docker run --rm --privileged \
     export DEBIAN_FRONTEND=noninteractive
     apt-get update && apt-get install -y live-build debootstrap curl gnupg2
 
-    # Configure live-build explicitly
+    # Configure live-build explicitly - use HTTPS mirrors with fallback
     lb config noauto \
       --architectures '${ARCH}' \
       --distribution '${SUITE}' \
       --archive-areas 'main contrib non-free non-free-firmware' \
-      --mirror-bootstrap 'http://http.kali.org/kali' \
-      --mirror-chroot-security 'http://security.kali.org/kali-security' \
-      --mirror-binary 'http://http.kali.org/kali' \
-      --mirror-binary-security 'http://security.kali.org/kali-security' \
-      --parent-mirror-bootstrap 'http://http.kali.org/kali' \
-      --parent-mirror-chroot-security 'http://security.kali.org/kali-security' \
-      --parent-mirror-binary 'http://http.kali.org/kali' \
-      --parent-mirror-binary-security 'http://security.kali.org/kali-security' \
+      --mirror-bootstrap 'https://http.kali.org/kali' \
+      --mirror-chroot-security 'https://security.kali.org/kali-security' \
+      --mirror-binary 'https://http.kali.org/kali' \
+      --mirror-binary-security 'https://security.kali.org/kali-security' \
+      --parent-mirror-bootstrap 'https://http.kali.org/kali' \
+      --parent-mirror-chroot-security 'https://security.kali.org/kali-security' \
+      --parent-mirror-binary 'https://http.kali.org/kali' \
+      --parent-mirror-binary-security 'https://security.kali.org/kali-security' \
       --parent-archive-areas 'main contrib non-free non-free-firmware' \
       --bootappend-live 'boot=live components quiet splash' \
       --binary-images tar \
