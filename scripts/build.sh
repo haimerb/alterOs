@@ -16,6 +16,8 @@ IMAGE_NAME="${DISTRO_NAME}-${VARIANT}-${ARCH}"
 OUTPUT_TAR="${DIST_DIR}/${IMAGE_NAME}-wsl.tar.gz"
 
 echo "=== Building ${IMAGE_NAME} ==="
+echo "CONFIG_DIR: ${CONFIG_DIR}"
+echo "DIST_DIR: ${DIST_DIR}"
 
 mkdir -p "$DIST_DIR"
 
@@ -62,9 +64,17 @@ docker run --rm --privileged \
 
     lb build
     
-    # Find the generated tarball (name may vary)
-    find /config -name 'live-image-*.tar.gz' -type f -exec mv {} /output/${IMAGE_NAME}-wsl.tar.gz \;
+    # Find the generated tarball (name may vary) and copy to output
+    echo \"=== Looking for generated tarball ===\"
+    find /config -name 'live-image-*.tar.gz' -type f -ls
+    find /config -name 'live-image-*.tar.gz' -type f -exec cp {} /output/${IMAGE_NAME}-wsl.tar.gz \;
+    echo \"=== Output directory contents ===\"
+    ls -la /output/
   "
+
+# Verify on host
+echo "=== Host output directory contents ==="
+ls -la "$DIST_DIR/"
 
 echo "=== Build complete: ${OUTPUT_TAR} ==="
 echo "Import into WSL with:"
