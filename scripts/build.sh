@@ -38,6 +38,7 @@ docker run --rm --privileged \
     apt-get install -y kali-archive-keyring
 
     # Configure live-build explicitly - Kali uses kali-rolling
+    # Use only valid mirrors (no kali-rolling-updates, no kali-rolling-security)
     lb config noauto \
       --architectures '${ARCH}' \
       --distribution '${SUITE}' \
@@ -55,8 +56,8 @@ docker run --rm --privileged \
       --binary-images tar \
       --apt-indices false \
       --apt-recommends false \
-      --security true \
-      --updates true \
+      --security false \
+      --updates false \
       --backports false
 
     lb build
