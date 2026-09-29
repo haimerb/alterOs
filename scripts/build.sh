@@ -67,6 +67,8 @@ docker run --rm --privileged \
     # Find the generated tarball (name may vary) and copy to output
     echo \"=== Looking for generated tarball ===\"
     find /config -name '*.tar.gz' -type f -ls
+    echo \"=== All files in /config ===\"
+    find /config -type f -name '*' | head -50
     find /config -name '*.tar.gz' -type f -exec cp {} /output/${IMAGE_NAME}-wsl.tar.gz \;
     echo \"=== Output directory contents ===\"
     ls -la /output/
