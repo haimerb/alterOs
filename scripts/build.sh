@@ -42,7 +42,6 @@ docker run --rm --privileged \
       --parent-mirror-binary 'http://http.kali.org/kali' \
       --parent-mirror-binary-security 'http://security.kali.org/kali-security' \
       --parent-archive-areas 'main contrib non-free non-free-firmware' \
-      --bootstrap-include 'apt-transport-https gnupg2' \
       --bootappend-live 'boot=live components quiet splash' \
       --binary-images tar \
       --apt-indices false \
