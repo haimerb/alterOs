@@ -1,0 +1,17 @@
+#!/bin/bash
+set -euo pipefail
+
+echo "=== Setting up Kali Linux repositories ==="
+
+cat > /etc/apt/sources.list << 'EOF'
+deb http://http.kali.org/kali bookworm main contrib non-free non-free-firmware
+deb http://security.kali.org/kali-security bookworm-security main contrib non-free non-free-firmware
+EOF
+
+apt-get update
+
+apt-get install -y kali-archive-keyring
+
+apt-get update
+
+echo "=== Kali repositories configured ==="

@@ -1,0 +1,41 @@
+#!/bin/bash
+set -euo pipefail
+
+echo "=== Setting up development environment ==="
+
+# Install oh-my-zsh for root
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended || true
+
+# Install oh-my-zsh for default user (will be created on first boot)
+mkdir -p /etc/skel
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended --keep-zshrc || true
+
+# Configure zsh as default shell
+chsh -s /bin/zsh root
+
+# Install starship prompt
+curl -sS https://starship.rs/install.sh | sh -s -- -y
+
+# Add starship to zsh config
+echo 'eval "$(starship init zsh)"' >> /root/.zshrc
+echo 'eval "$(starship init zsh)"' >> /etc/skel/.zshrc
+
+# Install nvm (Node Version Manager)
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
+
+# Install sdkman (Java, Gradle, Maven, etc.)
+curl -s "https://get.sdkman.io" | bash
+
+# Install rustup (already have rustc/cargo from apt, but rustup is better for version management)
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
+
+# Configure git
+git config --global init.defaultBranch main
+git config --global pull.rebase false
+git config --global core.editor "code --wait"
+
+# Create development directories
+mkdir -p /root/{projects,workspace,github,gitlab}
+mkdir -p /etc/skel/{projects,workspace,github,gitlab}
+
+echo "=== Development environment configured ==="

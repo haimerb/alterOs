@@ -1,0 +1,21 @@
+#!/bin/bash
+set -euo pipefail
+
+echo "=== Configuring systemd for WSL ==="
+
+mkdir -p /etc/systemd/system.conf.d
+cat > /etc/systemd/system.conf.d/wsl.conf << 'EOF'
+[Manager]
+DefaultTasksMax=15000
+EOF
+
+mkdir -p /etc/systemd/user.conf.d
+cat > /etc/systemd/user.conf.d/wsl.conf << 'EOF'
+[Manager]
+DefaultTasksMax=15000
+EOF
+
+systemctl enable systemd-resolved
+systemctl enable systemd-networkd
+
+echo "=== systemd configured for WSL ==="

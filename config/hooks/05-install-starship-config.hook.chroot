@@ -1,0 +1,12 @@
+#!/bin/bash
+set -euo pipefail
+
+echo "=== Installing Starship config ==="
+
+mkdir -p /root/.config
+cp /etc/starship.toml /root/.config/starship.toml
+
+mkdir -p /etc/skel/.config
+cp /etc/starship.toml /etc/skel/.config/starship.toml
+
+echo "=== Starship config installed ==="

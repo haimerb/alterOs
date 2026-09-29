@@ -1,0 +1,149 @@
+#!/bin/bash
+set -euo pipefail
+
+echo "=== Configuring shell aliases and functions ==="
+
+cat >> /root/.zshrc << 'EOF'
+
+# --- alterOs Development Aliases ---
+alias ll='eza -la --git'
+alias lt='eza --tree --level=2'
+alias cat='bat'
+alias grep='rg'
+alias find='fd'
+alias top='btop'
+alias vim='nvim'
+alias vi='nvim'
+
+# Git aliases
+alias gs='git status'
+alias ga='git add'
+alias gc='git commit'
+alias gp='git push'
+alias gl='git log --oneline -20'
+alias gd='git diff'
+alias gco='git checkout'
+alias gb='git branch'
+
+# Docker aliases
+alias d='docker'
+alias dc='docker compose'
+alias dps='docker ps'
+alias di='docker images'
+
+# Kubernetes aliases
+alias k='kubectl'
+alias kgp='kubectl get pods'
+alias kgs='kubectl get svc'
+
+# Directory shortcuts
+alias ..='cd ..'
+alias ...='cd ../..'
+alias ....='cd ../../..'
+alias ~='cd ~'
+alias projects='cd ~/projects'
+alias workspace='cd ~/workspace'
+
+# Development helpers
+mkcd() { mkdir -p "$1" && cd "$1"; }
+serve() { python3 -m http.server "${1:-8000}"; }
+ports() { ss -tulpn | grep LISTEN; }
+
+# WSL helpers
+alias winhome='cd /mnt/c/Users/$USER'
+alias winroot='cd /mnt/c'
+
+# Color support
+export LS_COLORS="$(vivid generate catppuccin-mocha 2>/dev/null || echo '')"
+
+# Starship prompt
+eval "$(starship init zsh)"
+
+# NVM
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
+
+# SDKMAN
+export SDKMAN_DIR="$HOME/.sdkman"
+[[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
+
+# Rust
+. "$HOME/.cargo/env"
+
+# Path additions
+export PATH="$HOME/.local/bin:$PATH"
+export PATH="$HOME/go/bin:$PATH"
+EOF
+
+# Copy to skel for new users
+cp /root/.zshrc /etc/skel/.zshrc
+
+# Also add to bash for compatibility
+cat >> /root/.bashrc << 'EOF'
+
+# --- alterOs Development Aliases ---
+alias ll='eza -la --git'
+alias lt='eza --tree --level=2'
+alias cat='bat'
+alias grep='rg'
+alias find='fd'
+alias top='btop'
+alias vim='nvim'
+alias vi='nvim'
+
+# Git aliases
+alias gs='git status'
+alias ga='git add'
+alias gc='git commit'
+alias gp='git push'
+alias gl='git log --oneline -20'
+alias gd='git diff'
+alias gco='git checkout'
+alias gb='git branch'
+
+# Docker aliases
+alias d='docker'
+alias dc='docker compose'
+alias dps='docker ps'
+alias di='docker images'
+
+# Directory shortcuts
+alias ..='cd ..'
+alias ...='cd ../..'
+alias ....='cd ../../..'
+alias ~='cd ~'
+alias projects='cd ~/projects'
+alias workspace='cd ~/workspace'
+
+# Development helpers
+mkcd() { mkdir -p "$1" && cd "$1"; }
+serve() { python3 -m http.server "${1:-8000}"; }
+ports() { ss -tulpn | grep LISTEN; }
+
+# WSL helpers
+alias winhome='cd /mnt/c/Users/$USER'
+alias winroot='cd /mnt/c'
+
+# Starship prompt
+eval "$(starship init bash)"
+
+# NVM
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+
+# SDKMAN
+export SDKMAN_DIR="$HOME/.sdkman"
+[[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
+
+# Rust
+. "$HOME/.cargo/env"
+
+# Path additions
+export PATH="$HOME/.local/bin:$PATH"
+export PATH="$HOME/go/bin:$PATH"
+EOF
+
+cp /root/.bashrc /etc/skel/.bashrc
+
+echo "=== Shell configuration complete ==="

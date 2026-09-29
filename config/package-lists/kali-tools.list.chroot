@@ -1,0 +1,149 @@
+# Kali Linux default meta-package (includes most common tools)
+kali-linux-default
+
+# WSL-specific utilities
+wslu
+systemd-genie
+
+# Additional useful tools not in default
+kali-tools-web
+kali-tools-wireless
+kali-tools-exploitation
+kali-tools-forensics
+kali-tools-reverse-engineering
+kali-tools-hardware
+kali-tools-passwords
+kali-tools-sniffing-spoofing
+kali-tools-fuzzing
+kali-tools-crypto-stego
+kali-tools-802-11
+kali-tools-bluetooth
+kali-tools-rfid
+kali-tools-sdr
+kali-tools-voip
+kali-tools-windows-resources
+
+# Base system utilities
+sudo
+curl
+wget
+git
+vim
+nano
+htop
+tree
+jq
+unzip
+zip
+rsync
+net-tools
+iproute2
+dnsutils
+iputils-ping
+traceroute
+nmap
+netcat-openbsd
+socat
+openssh-client
+openssh-server
+
+# Development tools (Ubuntu-style)
+build-essential
+cmake
+make
+gcc
+g++
+clang
+llvm
+pkg-config
+autoconf
+automake
+libtool
+gettext
+m4
+bison
+flex
+
+# Version control
+git
+git-lfs
+git-gui
+gitk
+tig
+gh
+
+# Languages & Runtimes
+python3
+python3-pip
+python3-venv
+python3-dev
+python3-setuptools
+python3-wheel
+nodejs
+npm
+golang-go
+rustc
+cargo
+openjdk-21-jdk
+openjdk-21-jre
+dotnet-sdk-8.0
+
+# Shell & Terminal
+zsh
+fish
+tmux
+fzf
+ripgrep
+fd-find
+bat
+eza
+btop
+neovim
+
+# Editors & IDE support
+code
+code-insiders
+
+# Containers & Cloud
+docker.io
+docker-compose
+podman
+kubectl
+helm
+terraform
+
+# Databases
+postgresql-client
+mysql-client
+redis-tools
+sqlite3
+mongodb-clients
+
+# Web development
+nginx
+apache2
+certbot
+
+# Network & Debug
+strace
+ltrace
+gdb
+valgrind
+perf
+tcpdump
+wireshark-cli
+tshark
+
+# Build systems
+meson
+ninja-build
+bazel
+
+# Utilities
+jq
+yq
+httpie
+curl
+wget
+aria2
+rclone

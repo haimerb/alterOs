@@ -1,0 +1,15 @@
+# Local agent instructions (not for repo)
+AGENTS.md
+
+# Build artifacts
+dist/
+*.tar.gz
+*.vhdx
+
+# OS/Editor files
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.swp
+*.swo

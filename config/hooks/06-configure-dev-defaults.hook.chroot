@@ -1,0 +1,61 @@
+#!/bin/bash
+set -euo pipefail
+
+echo "=== Configuring development defaults ==="
+
+# Set default editor
+update-alternatives --set editor /usr/bin/nvim
+
+# Configure git for all users
+git config --system init.defaultBranch main
+git config --system core.editor "nvim"
+git config --system pull.rebase false
+
+# Enable color in ls/grep
+echo 'alias ls="ls --color=auto"' >> /etc/bash.bashrc
+echo 'alias grep="grep --color=auto"' >> /etc/bash.bashrc
+
+# Create useful system-wide aliases
+cat >> /etc/bash.bashrc << 'EOF'
+
+# System-wide development aliases
+alias ll='ls -la'
+alias la='ls -A'
+alias l='ls -CF'
+alias ..='cd ..'
+alias ...='cd ../..'
+alias ports='ss -tulpn | grep LISTEN'
+EOF
+
+# Configure vim/nvim defaults
+mkdir -p /etc/nvim
+cat > /etc/nvim/init.vim << 'EOF'
+" Basic nvim configuration
+set number
+set relativenumber
+set tabstop=4
+set shiftwidth=4
+set expandtab
+set smartindent
+set wrap
+set mouse=a
+set clipboard=unnamedplus
+set termguicolors
+syntax on
+filetype plugin indent on
+
+" Key mappings
+let mapleader = " "
+nnoremap <leader>e :Explore<CR>
+nnoremap <leader>w :w<CR>
+nnoremap <leader>q :q<CR>
+EOF
+
+# Copy to skel
+mkdir -p /etc/skel/.config/nvim
+cp /etc/nvim/init.vim /etc/skel/.config/nvim/init.vim
+
+# Configure docker group (user will be added on first boot)
+groupadd -f docker
+
+echo "=== Development defaults configured ==="
