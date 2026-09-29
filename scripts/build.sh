@@ -8,7 +8,7 @@ DIST_DIR="$PROJECT_ROOT/dist"
 
 DISTRO_NAME="alteros"
 ARCH="amd64"
-# Kali uses 'kali-rolling' as its main distribution, not Debian codenames
+# Kali uses 'kali-rolling' as its main distribution
 SUITE="kali-rolling"
 VARIANT="kali"
 
@@ -28,6 +28,10 @@ docker run --rm --privileged \
     set -euo pipefail
     export DEBIAN_FRONTEND=noninteractive
     apt-get update && apt-get install -y live-build debootstrap curl gnupg2
+
+    # Install Kali archive keyring for package verification
+    curl -fsSL https://http.kali.org/kali/pool/main/k/kali-archive-keyring/kali-archive-keyring_2024.1_all.deb -o /tmp/kali-archive-keyring.deb
+    dpkg -i /tmp/kali-archive-keyring.deb
 
     # Configure live-build explicitly - Kali uses kali-rolling
     lb config noauto \
