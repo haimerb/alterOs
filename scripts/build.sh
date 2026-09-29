@@ -8,7 +8,8 @@ DIST_DIR="$PROJECT_ROOT/dist"
 
 DISTRO_NAME="alteros"
 ARCH="amd64"
-SUITE="bookworm"
+# Kali uses 'kali-rolling' as its main distribution, not Debian codenames
+SUITE="kali-rolling"
 VARIANT="kali"
 
 IMAGE_NAME="${DISTRO_NAME}-${VARIANT}-${ARCH}"
@@ -28,7 +29,7 @@ docker run --rm --privileged \
     export DEBIAN_FRONTEND=noninteractive
     apt-get update && apt-get install -y live-build debootstrap curl gnupg2
 
-    # Configure live-build explicitly - use HTTPS mirrors with fallback
+    # Configure live-build explicitly - Kali uses kali-rolling
     lb config noauto \
       --architectures '${ARCH}' \
       --distribution '${SUITE}' \
